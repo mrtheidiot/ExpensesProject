@@ -34,3 +34,5 @@ def createExpense(request):
 
   serializer = ExpenseSerializer(expense, many=False)
   return Response(serializer.data)
+
+  # line added for test purposes
