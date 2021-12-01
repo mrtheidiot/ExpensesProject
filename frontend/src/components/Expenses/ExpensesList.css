@@ -1,0 +1,20 @@
+.expenses-list {
+  width: 80%;
+  margin: 1rem auto 0;
+}
+
+.expenses-list-buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5rem 0;
+}
+
+.expenses-list-button {
+  width: 45%;
+  font-size: 2rem;
+}
+
+.expenses-list__filter {
+  width: 100%;
+  font-size: 2rem;
+}

@@ -1,0 +1,26 @@
+.expenses-filter {
+  display: flex;
+  justify-content: space-around;
+}
+
+.expenses-filter-year {
+}
+
+.expenses-filter-year select {
+  font: inherit;
+
+}
+
+
+.expenses-filter-month{
+
+}
+.expenses-filter-month select {
+  font: inherit;
+
+}
+
+.expenses-filter-day input {
+  font: inherit;
+
+}
