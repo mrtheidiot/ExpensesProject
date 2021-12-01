@@ -10,7 +10,7 @@ const FilteredExpensesList = (props) => {
   // <h1>{expense.created.slice(0, 10)}</h1>
   return (
     <div>
-      {filteredExpenses.map((expense, index) => {
+      {filteredExpenses.map((expense) => {
         return (
           <div>
             <ExpenseItem
@@ -18,7 +18,7 @@ const FilteredExpensesList = (props) => {
               date={expense.created}
               price={expense.price}
               category={expense.category}
-              key={index}
+              key={expense.created}
             />
           </div>
         );

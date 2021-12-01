@@ -58,8 +58,8 @@ const ChartFilter = () => {
       <div>
         <label>Select Category</label>
         <select>
-          {categories.map((category) => {
-            return <option value={category.id}>{category.title}</option>;
+          {categories.map((category, index) => {
+            return <option key={index} value={category.id}>{category.title}</option>;
           })}
         </select>
         <button type="button" onClick={searchByCategoryHandler}>
