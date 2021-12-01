@@ -11,6 +11,7 @@ function App() {
       <div className="main-app-sub-div">
         <ChartFilter />
         <div>Hello new git hub</div>
+        <div>Hello new git hub2</div>
       </div>
     </div>
   );
