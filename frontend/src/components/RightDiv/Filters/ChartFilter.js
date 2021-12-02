@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchByYear from "./SearchByYear";
+import SearchByCategory from "./SearchByCategory";
 
 const ChartFilter = () => {
   const [expenses, setExpenses] = useState([]);
@@ -7,7 +8,7 @@ const ChartFilter = () => {
   const [selectFilter, setSelectFilter] = useState(1);
 
   const [selectedYear, setSelectedYear] = useState("2021");
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState(categories);
   const [selectedMonth, setSelectedMonth] = useState();
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const ChartFilter = () => {
   };
   const selectedCategoryHandler = (event) => {
     setSelectedCategory(event.target.value);
+    console.log(selectedCategory)
   };
   const selectedMonthHandler = (event) => {
     setSelectedMonth(event.target.value);
@@ -42,7 +44,9 @@ const ChartFilter = () => {
   const searchByYearHandler = () => {
     setSelectFilter(1);
   };
-  const searchByCategoryHandler = () => {};
+  const searchByCategoryHandler = () => {
+    setSelectFilter(2);
+  };
   const searchByCatAndMonthHandler = () => {};
 
   // <div></div>;
@@ -62,10 +66,10 @@ const ChartFilter = () => {
         </div>
         <div>
           <label>Select Category</label>
-          <select>
+          <select onChange={selectedCategoryHandler}>
             {categories.map((category, index) => {
               return (
-                <option key={index} value={category.id}>
+                <option key={category.title} value={category.title}>
                   {category.title}
                 </option>
               );
@@ -97,7 +101,8 @@ const ChartFilter = () => {
         </div>
       </form>
       <div>
-        {selectFilter == 1 ? <SearchByYear expenses = {expenses} selected = {selectedYear}/> : null}
+        {selectFilter === 1 ? <SearchByYear expenses = {expenses} selected = {selectedYear}/> : null}
+        {selectFilter === 2 ? <SearchByCategory expenses = {expenses} categories = {categories} selectedY = {selectedYear} selectedC = {selectedCategory} /> : null}
       </div>
     </div>
   );

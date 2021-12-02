@@ -4,7 +4,7 @@ import Chart from "./Chart";
 const SearchByYear = (props) => {
   const filteredExpenses = props.expenses.filter((expense) => {
     const date = new Date(expense.created);
-    return date.getFullYear() == props.selected
+    return date.getFullYear() === props.selected
   });
 
   const chartDataPoints = [
