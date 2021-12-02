@@ -1,48 +1,52 @@
 import React, { useState, useEffect } from "react";
 import SearchByYear from "./SearchByYear";
 import SearchByCategory from "./SearchByCategory";
+import Filter1 from "./Filter1";
 
 const ChartFilter = () => {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectFilter, setSelectFilter] = useState(1);
-
+  
   const [selectedYear, setSelectedYear] = useState("2021");
-  const [selectedCategory, setSelectedCategory] = useState(categories);
+  const [selectedCategory, setSelectedCategory] = useState('Papierosy');
   const [selectedMonth, setSelectedMonth] = useState();
-
+  
   useEffect(() => {
     getExpenses();
   }, []);
   useEffect(() => {
     getCategories();
   }, []);
-
+  
   const getExpenses = async () => {
     let response = await fetch("/api/expenses/");
     let data = await response.json();
     setExpenses(data);
   };
-
+  
   const getCategories = async () => {
     const response = await fetch("/api/categories/");
     const data = await response.json();
     setCategories(data);
   };
-
-  const selectedYearHandler = (event) => {
-    setSelectedYear(event.target.value);
-  };
+  
+  
+  // const selectedYearHandler = (event) => {
+  //   setSelectedYear(event.target.value);
+  //   console.log(selectedYear)
+  // };
   const selectedCategoryHandler = (event) => {
     setSelectedCategory(event.target.value);
-    console.log(selectedCategory)
   };
   const selectedMonthHandler = (event) => {
     setSelectedMonth(event.target.value);
   };
 
-  const searchByYearHandler = () => {
+  const searchByYearHandler = (year) => {
     setSelectFilter(1);
+    setSelectedYear(year);
+    console.log(selectedYear)
   };
   const searchByCategoryHandler = () => {
     setSelectFilter(2);
@@ -52,28 +56,20 @@ const ChartFilter = () => {
   // <div></div>;
   return (
     <div>
-      <form>
-        <div>
-          <label>Select Year</label>
-          <select onChange={selectedYearHandler} value={selectedYear}>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-          </select>
-          <button type="button" onClick={searchByYearHandler}>
-            Search by Year
-          </button>
-        </div>
+        <Filter1 onSearchByYear={searchByYearHandler} />
         <div>
           <label>Select Category</label>
-          <select onChange={selectedCategoryHandler}>
-            {categories.map((category, index) => {
+          <select onChange={selectedCategoryHandler} value={selectedCategory}>
+            {/* {categories.map((category, index) => {
               return (
                 <option key={category.title} value={category.title}>
                   {category.title}
                 </option>
               );
-            })}
+            })} */}
+            <option value="Akohol" >Alkohol</option>
+            <option value="Papierosy" >Papierosy</option>
+            <option value="Sex" >Sex</option>
           </select>
           <button type="button" onClick={searchByCategoryHandler}>
             Search by Category
@@ -99,7 +95,7 @@ const ChartFilter = () => {
             Search by Month and Category
           </button>
         </div>
-      </form>
+
       <div>
         {selectFilter === 1 ? <SearchByYear expenses = {expenses} selected = {selectedYear}/> : null}
         {selectFilter === 2 ? <SearchByCategory expenses = {expenses} categories = {categories} selectedY = {selectedYear} selectedC = {selectedCategory} /> : null}
