@@ -11,6 +11,7 @@ const ExpensesList = () => {
   const [showFilterComponent, setShowFilterComponent] = useState(false);
   const [selectedDate, setSelectedDate] = useState("2021-11-20");
   const [filterofall, setfilterofall] = useState(1);
+  const [addExpense, setAddExpense] = useState(1)
 
 
   useEffect(() => {
@@ -33,7 +34,9 @@ const ExpensesList = () => {
   return (
     <div className="expenses-list__card">
       <Card className="expenses-list">
-        <NewExpense />
+        {addExpense == 1 ? <button onClick={()=>{setAddExpense(0)}}>Add New Expese</button> : null}
+        {addExpense === 0 ? <NewExpense onSetAddExpense={()=>{setAddExpense(1)}}  /> : null}
+        
         <div className="expenses-list-buttons">
           <button
             className="expenses-list-button"

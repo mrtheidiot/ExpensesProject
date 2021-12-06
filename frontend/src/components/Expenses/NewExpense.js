@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import ErrorModal from "../UI/ErrorModal";
 
-const NewExpense = () => {
+const NewExpense = (props) => {
   // GET CSRFToken FUNCIOTN
+  const [error, setError] = useState(null)
 
   function getCookie(name) {
     if (!document.cookie) {
@@ -21,21 +23,12 @@ const NewExpense = () => {
 
   //  END GET CSRF FUNCIOTN
 
-  const [newExpenseTitle, setNewExpenseTitle] = useState();
-  const [newExpensePrice, setNewExpensePrice] = useState();
-  const [newExpenseCategory, setNewExpenseCategory] = useState();
+  const newExpenseTitle = useRef();
+  const newExpensePrice= useRef();
+  const newExpenseCategory = useRef();
 
-  const newExpenseTitleHandler = (event) => {
-    setNewExpenseTitle(event.target.value);
-  };
-  const newExpensePriceHandler = (event) => {
-    setNewExpensePrice(event.target.value);
-  };
-  const newExpenseCategoryHandler = (event) => {
-    setNewExpenseCategory(event.target.value);
-  };
-
-  let createNote = async () => {
+  let createNote = async (title, price, category) => {
+    console.log(title, price, category)
     fetch("/api/expenses/new/", {
       method: "POST",
       headers: {
@@ -43,34 +36,52 @@ const NewExpense = () => {
         "X-CSRFToken": csrftoken,
       },
       body: JSON.stringify({
-        title: newExpenseTitle,
-        price: newExpensePrice,
-        category: newExpenseCategory,
+        title: title,
+        price: price,
+        category: category,
       })
     });
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    createNote();
+    const title = newExpenseTitle.current.value;
+    const price = newExpensePrice.current.value;
+    const category = newExpenseCategory.current.value;
+    if (title.trim().length === 0 || price.trim().length === 0 || category.trim().length == 0) {
+      setError({
+        title: "Invalid Input",
+        message: "Please enter correct values."
+      })
+      return;
+    }
+    createNote(title, price, category);
+    props.onSetAddExpense();
   };
-
+  const errorHandler = () => {
+    setError(null);
+  }
   return (
+    <div>
+    {error && <ErrorModal title={error.title}  message={error.message} onConfirm={errorHandler} />}
+
     <form onSubmit={submitHandler}>
       <div>
         <label>Title</label>
-        <input type="text" onChange={newExpenseTitleHandler}></input>
+        <input type="text" ref={newExpenseTitle}></input>
       </div>
       <div>
         <label>Price</label>
-        <input type="text" onChange={newExpensePriceHandler}></input>
+        <input type="text" ref={newExpensePrice}></input>
       </div>
       <div>
         <label>Category</label>
-        <input type="text" onChange={newExpenseCategoryHandler}></input>
+        <input type="text" ref={newExpenseCategory} ></input>
       </div>
       <button type="submit">Add New Expense</button>
+      <button type="button" onClick={()=>{props.onSetAddExpense(1)}}>Cancel</button>
     </form>
+    </div>
   );
 };
 
