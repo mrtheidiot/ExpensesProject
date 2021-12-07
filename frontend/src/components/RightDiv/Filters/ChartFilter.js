@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import SearchByYear from "./SearchByYear";
 import SearchByCategory from "./SearchByCategory";
 import Filter1 from "./Filter1";
-import Filter2 from "./Filter2";
 import Filter3 from "./Filter3";
 import SearchbyMonth from "./SearchbyMonth";
+import "./ChartFilter.css";
 
 const ChartFilter = () => {
   const [expenses, setExpenses] = useState([]);
@@ -38,12 +38,10 @@ const ChartFilter = () => {
   //   setSelectedYear(event.target.value);
   //   console.log(selectedYear)
   // };
-  const selectedCategoryHandler = (category) => {
-    setSelectedCategory(category);
-  };
+
   const selectedMonthHandler = (month) => {
     setSelectedMonth(month);
-    console.log(selectedMonth)
+    console.log(selectedMonth);
   };
 
   const searchByYearHandler = (year) => {
@@ -57,25 +55,35 @@ const ChartFilter = () => {
   const searchByCatAndMonthHandler = () => {
     setSelectFilter(3);
   };
-
+  
   // <div></div>;
   return (
     <div>
-      <Filter1 onSearchByYear={searchByYearHandler} selected={selectedYear} />
+      <div className="filters-div">
+        <div className = "filter-subdiv">
+          <Filter1
+            onSearchByYear={searchByYearHandler}
+            selected={selectedYear}
+          />
+        </div>
+        <div className = "filter-subdiv">
+          <Filter3
+            onSearchByMonth={selectedMonthHandler}
+            categories={categories}
+          />
+        </div>
+      </div>
       <div>
-        <Filter2
-          onSearchByCategory={selectedCategoryHandler}
-          categories={categories}
-        />
+        <button type="button" onClick={searchByYearHandler}>
+          Search by Year
+        </button>
+      </div>
+      <div>
         <button type="button" onClick={searchByCategoryHandler}>
           Search by Category
         </button>
       </div>
       <div>
-        <Filter3
-          onSearchByMonth={selectedMonthHandler}
-          categories={categories}
-        />
         <button type="button" onClick={searchByCatAndMonthHandler}>
           Search by Month and Category
         </button>
@@ -93,7 +101,14 @@ const ChartFilter = () => {
             selectedC={selectedCategory}
           />
         ) : null}
-        {selectFilter === 3 ? <SearchbyMonth expenses={expenses} categories={categories} selectedM={selectedMonth} selectedY={selectedYear}/> : null}
+        {selectFilter === 3 ? (
+          <SearchbyMonth
+            expenses={expenses}
+            categories={categories}
+            selectedM={selectedMonth}
+            selectedY={selectedYear}
+          />
+        ) : null}
       </div>
     </div>
   );

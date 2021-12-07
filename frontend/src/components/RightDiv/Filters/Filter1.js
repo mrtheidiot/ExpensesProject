@@ -6,9 +6,8 @@ const Filter1 = (props) => {
   };
 
   return (
-    <div>
-      <label>Select Year</label>
-      <select onChange={dropdownChangeHandler} value={props.selected}>
+    <div >
+      <select onChange={dropdownChangeHandler} value={props.selected} style={{ width: "100%" }}>
         <option value="2023">2023</option>
         <option value="2022">2022</option>
         <option value="2021">2021</option>

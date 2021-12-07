@@ -1,0 +1,9 @@
+.filters-div {
+    display: flex;
+
+}
+
+.filter-subdiv {
+    width: 50%;
+}
+

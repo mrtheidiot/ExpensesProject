@@ -1,4 +1,4 @@
-
+/* 
 .chart {
   padding: 1rem;
   border-radius: 12px;
@@ -7,4 +7,12 @@
   display: flex;
   justify-content: space-around;
   height: 10rem;
+} */
+
+.chart {
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+  justify-content: space-around;
+  height: 5rem;
 }

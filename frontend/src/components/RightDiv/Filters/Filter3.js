@@ -7,7 +7,6 @@ const Filter3 = (props) => {
 
   return (
     <div>
-        <label>Search by Category in Month</label>
         <select onChange={dropdownmenuhandler}>
           <option value="0">January</option>
           <option value="1">february</option>

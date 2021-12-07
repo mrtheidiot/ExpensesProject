@@ -5,13 +5,12 @@ import "./App.css";
 function App() {
   return (
     <div className="main-app-div">
-      <div className="main-app-sub-div">
+      <div className="main-app-sub-div1">
         <ExpensesList />
       </div>
-      <div className="main-app-sub-div">
+      <div className="main-app-sub-div2">
         <ChartFilter />
-        <div>Hello new git hub</div>
-        <div>Hello new git hub2</div>
+
       </div>
     </div>
   );
